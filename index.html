@@ -23,16 +23,25 @@
       let date;
       let time;
       const options = {
+        timeZone: "Asia/Kolkata",
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
+        offset: "+5.5",
       };
       setInterval(() => {
         a = new Date();
-        time = a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds();
+        // time = a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds();
+        // date = a.toLocaleString('en-US', options);
+
+        utc = a.getTime() + a.getTimezoneOffset() * 60000;
+        time = new Date(utc + 3600000 * options.offset);
         date = a.toLocaleDateString(undefined, options);
-        document.getElementById("time").innerHTML = time + " on " + date;
+
+        document.getElementById("time").innerHTML =
+          time.toLocaleTimeString() + " on " + date;
+        // document.getElementById("time").innerHTML = time + " on " + date;
       }, 1000);
     </script>
   </head>
@@ -104,13 +113,22 @@
         <p class="lead">This is a demo project to show the required time.</p>
         <hr class="my-4" />
         <p>You can view time for any countries.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button"
-            >Browse Time</a
-          >
-        </p>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Asia/Kolkata</a>
+              <a class="dropdown-item" href="#">Europe/London</a>
+              <a class="dropdown-item" href="#">Australia/Eucla</a>
+              <a class="dropdown-item" href="#">America/Santiago</a>
+              <a class="dropdown-item" href="#">Asia/Riyadh</a>
+            </div>
+          </div>
       </div>
     </div>
+
+    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
